@@ -11,11 +11,7 @@ function Plate({ size = 1800 }: PlateProps) {
         className="max-w-full max-h-full w-auto h-auto"
         viewBox={`0 0 ${size} ${size}`}
       >
-        <image
-          href={plateImage}
-          width={size}
-          height={size}
-        />
+        <image href={plateImage} width={size} height={size} />
       </svg>
     </div>
   );

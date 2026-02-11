@@ -70,7 +70,7 @@ function Pizza({
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <svg
-        className="cursor-pointer max-w-full max-h-full w-auto h-auto"
+        className="max-w-full max-h-full w-auto h-auto"
         viewBox={`0 0 ${size} ${size}`}
       >
         {clipPaths}

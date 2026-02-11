@@ -48,7 +48,6 @@ function PizzaSlice({
         height={size}
         clipPath={`url(#slice-${index})`}
         onClick={onClick}
-        style={{ cursor: "pointer" }}
       />
     </g>
   );
