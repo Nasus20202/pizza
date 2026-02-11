@@ -7,7 +7,7 @@ type HedgehogProps = {
 };
 
 function Hedgehog({ size = 100 }: HedgehogProps) {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: -size, y: -size });
   const [isAlt, setIsAlt] = useState(false);
 
   useEffect(() => {

@@ -1,19 +1,37 @@
+import { useState } from "react";
 import plateImage from "../assets/plate.webp";
 
 type PlateProps = {
   size?: number;
+  onClick?: () => void;
 };
 
-function Plate({ size = 1800 }: PlateProps) {
+function Plate({ size = 1800, onClick: on }: PlateProps) {
+  const [isClicked, setIsClicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <svg
-        className="max-w-full max-h-full w-auto h-auto"
-        viewBox={`0 0 ${size} ${size}`}
+    isVisible && (
+      <div
+        className="w-screen h-screen flex items-center justify-center cursor-pointer transition-transform duration-3000 ease-in-out"
+        onClick={() => {
+          setIsClicked(true);
+          on?.();
+        }}
+        onTransitionEnd={() => setIsVisible(!isClicked)}
+        style={{
+          transform: isClicked ? "translateY(150vh)" : "translateY(0)",
+          pointerEvents: isClicked ? "none" : "auto",
+        }}
       >
-        <image href={plateImage} width={size} height={size} />
-      </svg>
-    </div>
+        <svg
+          className="max-w-full max-h-full w-auto h-auto z-20"
+          viewBox={`0 0 ${size} ${size}`}
+        >
+          <image href={plateImage} width={size} height={size} />
+        </svg>
+      </div>
+    )
   );
 }
 
