@@ -63,6 +63,10 @@ function Pizza({
     [sliceCount, radius, center],
   );
 
+  if (sliceStatuses.every((status) => status === "hidden")) {
+    return null;
+  }
+
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <svg
