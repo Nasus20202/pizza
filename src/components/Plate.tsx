@@ -1,5 +1,5 @@
-import { useState } from "react";
-import plateImage from "../assets/plate.webp";
+import { useState } from 'react';
+import plateImage from '../assets/plate.webp';
 
 type PlateProps = {
   size?: number;
@@ -20,8 +20,8 @@ function Plate({ size = 1800, onClick: on }: PlateProps) {
         }}
         onTransitionEnd={() => setIsVisible(!isClicked)}
         style={{
-          transform: isClicked ? "translateY(150vh)" : "translateY(0)",
-          pointerEvents: isClicked ? "none" : "auto",
+          transform: isClicked ? 'translateY(150vh)' : 'translateY(0)',
+          pointerEvents: isClicked ? 'none' : 'auto',
         }}
       >
         <svg

@@ -1,10 +1,10 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from "react";
-import { slicePath } from "../lib/util";
-import PizzaSlice from "./PizzaSlice";
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { slicePath } from '../lib/util';
+import PizzaSlice from './PizzaSlice';
 
 const ANIMATION_DURATION = 600;
 
-type SliceStatus = "visible" | "animating" | "hidden";
+type SliceStatus = 'visible' | 'animating' | 'hidden';
 
 type PizzaProps = {
   sliceCount?: number;
@@ -20,7 +20,7 @@ function Pizza({
   center = size / 2,
 }: PizzaProps) {
   const [sliceStatuses, setSliceStatuses] = useState<SliceStatus[]>(
-    Array(sliceCount).fill("visible"),
+    Array(sliceCount).fill('visible')
   );
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -35,14 +35,14 @@ function Pizza({
   const handleClick = useCallback((i: number) => {
     setSliceStatuses((prev) => {
       const next = [...prev];
-      next[i] = "animating";
+      next[i] = 'animating';
       return next;
     });
 
     const timeout = setTimeout(() => {
       setSliceStatuses((prev) => {
         const next = [...prev];
-        next[i] = "hidden";
+        next[i] = 'hidden';
         return next;
       });
     }, ANIMATION_DURATION);
@@ -60,10 +60,10 @@ function Pizza({
         ))}
       </defs>
     ),
-    [sliceCount, radius, center],
+    [sliceCount, radius, center]
   );
 
-  if (sliceStatuses.every((status) => status === "hidden")) {
+  if (sliceStatuses.every((status) => status === 'hidden')) {
     return null;
   }
 
@@ -76,17 +76,17 @@ function Pizza({
         {clipPaths}
         {sliceStatuses.map(
           (status, i) =>
-            status !== "hidden" && (
+            status !== 'hidden' && (
               <PizzaSlice
                 key={i}
                 index={i}
                 size={size}
                 sliceCount={sliceCount}
-                isAnimating={status === "animating"}
+                isAnimating={status === 'animating'}
                 animationDuration={ANIMATION_DURATION}
                 onClick={() => handleClick(i)}
               />
-            ),
+            )
         )}
       </svg>
     </div>

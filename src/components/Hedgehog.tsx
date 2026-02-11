@@ -1,6 +1,6 @@
-import hedgehogImage from "../assets/hedgehog.webp";
-import hedgehogAltImage from "../assets/hedgehog-alt.webp";
-import { useEffect, useState } from "react";
+import hedgehogImage from '../assets/hedgehog.webp';
+import hedgehogAltImage from '../assets/hedgehog-alt.webp';
+import { useEffect, useState } from 'react';
 
 type HedgehogProps = {
   size?: number;
@@ -15,9 +15,9 @@ function Hedgehog({ size = 100 }: HedgehogProps) {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -34,11 +34,11 @@ function Hedgehog({ size = 100 }: HedgehogProps) {
       }
     };
 
-    window.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
     return () => {
-      window.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
     };
   }, []);
 

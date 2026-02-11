@@ -1,8 +1,8 @@
-import { useState } from "react";
-import Background from "./components/Background";
-import Hedgehog from "./components/Hedgehog";
-import MainPage from "./pages/MainPage";
-import PizzaPage from "./pages/PizzaPage";
+import { useState } from 'react';
+import Background from './components/Background';
+import Hedgehog from './components/Hedgehog';
+import MainPage from './pages/MainPage';
+import PizzaPage from './pages/PizzaPage';
 
 function App() {
   const [mainPageVisible, setMainPageVisible] = useState(false);

@@ -1,5 +1,5 @@
-import pizzaImage from "../assets/pizza.webp";
-import { useMemo } from "react";
+import pizzaImage from '../assets/pizza.webp';
+import { useMemo } from 'react';
 
 type PizzaSliceProps = {
   index: number;
@@ -19,7 +19,7 @@ function PizzaSlice({
   onClick,
 }: PizzaSliceProps) {
   const transform = useMemo(() => {
-    if (!isAnimating) return "";
+    if (!isAnimating) return '';
 
     const anglePerSlice = (2 * Math.PI) / sliceCount;
     const angle = index * anglePerSlice + anglePerSlice / 2;
@@ -37,7 +37,7 @@ function PizzaSlice({
     <g
       style={{
         transform,
-        transformOrigin: "center",
+        transformOrigin: 'center',
         opacity: isAnimating ? 0 : 1,
         transition: `transform ${transitionDuration} ease-out, opacity ${transitionDuration} ease-out`,
       }}

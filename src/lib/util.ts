@@ -10,7 +10,7 @@ function slicePath(
   index: number,
   sliceCount: number,
   radius: number,
-  center: number,
+  center: number
 ) {
   const angle = 360 / sliceCount;
   const startAngle = index * angle;

@@ -1,5 +1,5 @@
-import Pizza from "../components/Pizza";
-import Plate from "../components/Plate";
+import Pizza from '../components/Pizza';
+import Plate from '../components/Plate';
 
 type PizzaPageProps = {
   handleClose?: () => void;
