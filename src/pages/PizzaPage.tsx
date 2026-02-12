@@ -11,7 +11,7 @@ function PizzaPage({ handleClose }: PizzaPageProps) {
 
   return (
     <>
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 overflow-hidden">
         <Plate size={size} onClick={handleClose} />
       </div>
       <div className="relative z-10">
