@@ -13,7 +13,7 @@ function Plate({ size = 1800, onClick: on }: PlateProps) {
   return (
     isVisible && (
       <div
-        className="w-screen h-screen flex items-center justify-center cursor-pointer transition-transform duration-3000 ease-in-out"
+        className="w-screen h-screen flex items-center justify-center cursor-pointer transition-transform duration-3000 ease-in-out overflow-hidden"
         onClick={() => {
           setIsClicked(true);
           on?.();
