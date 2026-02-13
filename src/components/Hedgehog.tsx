@@ -15,9 +15,18 @@ function Hedgehog({ size = 100 }: HedgehogProps) {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
+    const handleTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        setPosition({ x: touch.clientX, y: touch.clientY });
+      }
+    };
+
     window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('touchmove', handleTouchMove);
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchmove', handleTouchMove);
     };
   }, []);
 
@@ -34,11 +43,23 @@ function Hedgehog({ size = 100 }: HedgehogProps) {
       }
     };
 
+    const handleTouchStart = () => {
+      setIsAlt(true);
+    };
+
+    const handleTouchEnd = () => {
+      setIsAlt(false);
+    };
+
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('touchstart', handleTouchStart);
+    window.addEventListener('touchend', handleTouchEnd);
     return () => {
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
     };
   }, []);
 
