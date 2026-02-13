@@ -178,6 +178,156 @@ describe('Hedgehog', () => {
     expect(img).toHaveStyle({ width: '0px', height: '0px' });
   });
 
+  it('should update position on touch move', () => {
+    const { container } = render(<Hedgehog size={100} />);
+    const img = container.querySelector('img');
+
+    // Simulate touch move
+    fireEvent.touchMove(window, {
+      touches: [{ clientX: 200, clientY: 300 }],
+    });
+
+    // Position should be centered on touch (clientX - size/2, clientY - size/2)
+    expect(img).toHaveStyle({ left: '150px', top: '250px' });
+  });
+
+  it('should follow touch continuously', () => {
+    const { container } = render(<Hedgehog size={100} />);
+    const img = container.querySelector('img');
+
+    // First touch move
+    fireEvent.touchMove(window, {
+      touches: [{ clientX: 100, clientY: 100 }],
+    });
+    expect(img).toHaveStyle({ left: '50px', top: '50px' });
+
+    // Second touch move
+    fireEvent.touchMove(window, {
+      touches: [{ clientX: 400, clientY: 500 }],
+    });
+    expect(img).toHaveStyle({ left: '350px', top: '450px' });
+  });
+
+  it('should change image on touch start', () => {
+    const { container } = render(<Hedgehog />);
+    const img = container.querySelector('img');
+
+    const initialSrc = img?.getAttribute('src');
+
+    // Simulate touch start
+    fireEvent.touchStart(window);
+
+    const altSrc = img?.getAttribute('src');
+    expect(altSrc).not.toBe(initialSrc);
+  });
+
+  it('should revert image on touch end', () => {
+    const { container } = render(<Hedgehog />);
+    const img = container.querySelector('img');
+
+    const initialSrc = img?.getAttribute('src');
+
+    // Touch start
+    fireEvent.touchStart(window);
+    const altSrc = img?.getAttribute('src');
+    expect(altSrc).not.toBe(initialSrc);
+
+    // Touch end
+    fireEvent.touchEnd(window);
+    const finalSrc = img?.getAttribute('src');
+    expect(finalSrc).toBe(initialSrc);
+  });
+
+  it('should handle rapid touch movements', () => {
+    const { container } = render(<Hedgehog size={100} />);
+    const img = container.querySelector('img');
+
+    // Rapid fire touch moves
+    for (let i = 0; i < 10; i++) {
+      fireEvent.touchMove(window, {
+        touches: [{ clientX: i * 10, clientY: i * 10 }],
+      });
+    }
+
+    // Should be at the last position
+    expect(img).toHaveStyle({ left: '40px', top: '40px' });
+  });
+
+  it('should handle touch start and end cycles', () => {
+    const { container } = render(<Hedgehog />);
+    const img = container.querySelector('img');
+
+    const initialSrc = img?.getAttribute('src');
+
+    // Multiple touch start/end cycles
+    for (let i = 0; i < 3; i++) {
+      fireEvent.touchStart(window);
+      const downSrc = img?.getAttribute('src');
+      expect(downSrc).not.toBe(initialSrc);
+
+      fireEvent.touchEnd(window);
+      const upSrc = img?.getAttribute('src');
+      expect(upSrc).toBe(initialSrc);
+    }
+  });
+
+  it('should handle multi-touch by using first touch', () => {
+    const { container } = render(<Hedgehog size={100} />);
+    const img = container.querySelector('img');
+
+    // Simulate multi-touch - should use first touch
+    fireEvent.touchMove(window, {
+      touches: [
+        { clientX: 200, clientY: 300 },
+        { clientX: 400, clientY: 500 },
+      ],
+    });
+
+    // Position should be based on first touch
+    expect(img).toHaveStyle({ left: '150px', top: '250px' });
+  });
+
+  it('should handle touch events with different sizes', () => {
+    const { container } = render(<Hedgehog size={80} />);
+    const img = container.querySelector('img');
+
+    fireEvent.touchMove(window, {
+      touches: [{ clientX: 200, clientY: 200 }],
+    });
+
+    // With size 80, offset should be 40 (size/2)
+    expect(img).toHaveStyle({ left: '160px', top: '160px' });
+  });
+
+  it('should cleanup touch event listeners on unmount', () => {
+    const { unmount } = render(<Hedgehog />);
+
+    // Get initial listener count by checking if events still fire after unmount
+    unmount();
+
+    // After unmount, touch events shouldn't cause any errors
+    expect(() => {
+      fireEvent.touchMove(window, {
+        touches: [{ clientX: 100, clientY: 100 }],
+      });
+      fireEvent.touchStart(window);
+      fireEvent.touchEnd(window);
+    }).not.toThrow();
+  });
+
+  it('should handle touch move with empty touches array', () => {
+    const { container } = render(<Hedgehog size={100} />);
+    const img = container.querySelector('img');
+
+    // Set initial position with mouse
+    fireEvent.mouseMove(window, { clientX: 200, clientY: 200 });
+    expect(img).toHaveStyle({ left: '150px', top: '150px' });
+
+    // Touch move with empty touches array should not change position
+    fireEvent.touchMove(window, { touches: [] });
+    expect(img).toHaveStyle({ left: '150px', top: '150px' });
+  });
+
   it('should handle very large size', () => {
     const { container } = render(<Hedgehog size={500} />);
     const img = container.querySelector('img');

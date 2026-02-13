@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import PizzaPage from '../PizzaPage';
 
 describe('PizzaPage', () => {
@@ -29,7 +29,9 @@ describe('PizzaPage', () => {
     // Find the plate div and click it
     const plateDiv = container.querySelector('.w-screen.h-screen');
     if (plateDiv) {
-      plateDiv.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      act(() => {
+        plateDiv.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      });
     }
 
     expect(handleClose).toHaveBeenCalledTimes(1);
