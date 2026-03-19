@@ -6,6 +6,7 @@ function MainPage() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setVisible(true);
     document.title = 'Jeżowych Pizzawalentynek!';
   }, []);
