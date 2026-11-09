@@ -37,7 +37,7 @@ describe('Plate', () => {
       fireEvent.click(plate);
     }
 
-    expect(plate).toHaveStyle({ transform: 'translateY(150vh)' });
+    expect((plate as HTMLElement).style.transform).toBe('translateY(150vh)');
   });
 
   it('should disable pointer events after click', () => {
